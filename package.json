@@ -1,0 +1,10 @@
+{
+    "scripts": {
+        "build-start-docker": "docker-compose up --build",
+        "start-docker": "docker-compose up",
+        "build-docker": "docker-compose build",
+        "stop-docker": "docker-compose down",
+        "clean-docker": "docker system prune -af",
+        "clean:volumes-docker": "docker volume prune -f"
+    }
+}
