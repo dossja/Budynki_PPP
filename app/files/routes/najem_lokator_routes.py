@@ -14,16 +14,16 @@ def get_najmyLokatorzy():
 
 @app.route('/najmyLokatorzy/<string:id>', methods=['GET'])
 def get_najmyLokatorzy_ID(id):
-    najmyLokatorzy = NajmyLokatorzy.query.get(id)
+    najmyLokatorzy = NajmyLokatorzy.query.filter_by(lokator_id=id).all()
 
     if najmyLokatorzy is not None:
         return jsonify(f"{najmyLokatorzy}"), 200
     return jsonify(error="najmyLokatorzy not found"), 404
 
 
-@app.route('/najmyLokatorzy/lokatorzy', methods=['GET'])
-def get_najmyLokatorzy_Lokatorzy():
-    najmyLokatorzy = NajmyLokatorzy.query.filter_by(najem_id=id)
+@app.route('/najmyLokatorzy/<string:id>/lokatorzy', methods=['GET'])
+def get_najmyLokatorzy_Lokatorzy(id):
+    najmyLokatorzy = NajmyLokatorzy.query.filter_by(najem_id=id).all()
 
     if najmyLokatorzy is not None:
         return jsonify(f"{najmyLokatorzy}"), 200

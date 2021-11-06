@@ -15,7 +15,7 @@ const FormZlecenie = (props) => {
     const fpa = new firmyPodwykonawczeAPI();
 
     const defaultEmpty = {}
-    const [kontynuuj, setKontynuuj] = useState(true)
+    const [kontynuuj, setKontynuuj] = useState(false)
     const [validated, setValidated] = useState(false);
     const [form, setForm] = React.useState(defaultEmpty)
     const [firmyPodwykonawcze, setFirmyPodwykonawcze] = React.useState([])
@@ -142,7 +142,7 @@ const FormZlecenie = (props) => {
                                         <Form.Control required pattern="{[0-9]+}|{[0-9],[0-9]}" name="koszt" placeholder="50.50" onChange={updatePole} />
                                         <Form.Control.Feedback type="invalid">
                                             Pole jest wymagane
-                                    </Form.Control.Feedback>
+                                        </Form.Control.Feedback>
                                     </FormGroup>
                                 </div>
                                 <div className="col">
@@ -151,7 +151,7 @@ const FormZlecenie = (props) => {
                                         <Form.Control required type="date" name="terminWykonania" onChange={updatePole} />
                                         <Form.Control.Feedback type="invalid">
                                             Pole jest wymagane
-                                    </Form.Control.Feedback>
+                                        </Form.Control.Feedback>
                                     </FormGroup>
                                 </div>
                             </Row>
@@ -179,7 +179,7 @@ const FormZlecenie = (props) => {
                                         <Form.Control name="nazwa" disabled={!nowaFirma} required placeholder="Firma Stolarska" onChange={updatePole} />
                                         <Form.Control.Feedback type="invalid">
                                             Pole jest wymagane
-                                            </Form.Control.Feedback>
+                                        </Form.Control.Feedback>
                                     </FormGroup>
                                 </div>
                                 <Row>

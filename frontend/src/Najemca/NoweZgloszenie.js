@@ -83,24 +83,30 @@ const NoweZgloszenie = (props) => {
             else if (form.kategoria === "budynek")
                 id_kategoria = 3;
 
-            const dane = { "opis": form.tytul, "kosztCalkowity": 0, "statusZgloszenia": { "id": 1, "nazwa": "oczekujace" }, "kategoriaZgloszenia": { "id": id_kategoria, "nazwa": form.kategoria } }
+            const dane = { "opis": form.tytul, "kosztCalkowity": 0, "statusZgloszenia_id": 1, "kategoriaZgloszenia_id": id_kategoria }
 
             za.post(dane).then(resp => {
                 za.getNewest().then(response => {
                     console.log(response.data.id)
                     const zgloszenie = { "id": response.data.id, "opis": response.data.opis, "kosztCalkowity": response.data.kosztCalkowity }
-                    na.getID(form.id_umowy).then(respNajem => {
-                        const najem = { "id": respNajem.data.id, "numerUmowy": respNajem.data.numerUmowy, "dataPoczatku": respNajem.data.dataPoczatku, "dataZakonczona": respNajem.data.dataZakonczona, "emailNajemcy": respNajem.data.emailNajemcy }
+                    dane["id"] = response.data.id;
 
-                        const dane = { "najem": najem, "zgloszenie": zgloszenie };
-                        nza.post(dane).then(responseNZ => {
-                            props.onHide()
-                        }).catch(e => {
-                            console.log(e)
-                        })
-                    }).catch(e => {
-                        console.log(e)
-                    })
+                    console.log(dane)
+
+                    const najmyZgl = { "zgloszenie_id": response.data.id, "najem_id": form.id_umowy };
+                    nza.post(najmyZgl).then();
+                    // na.getID(form.id_umowy).then(respNajem => {
+                    //     const najem = { "id": respNajem.data.id, "numerUmowy": respNajem.data.numerUmowy, "dataPoczatku": respNajem.data.dataPoczatku, "dataZakonczona": respNajem.data.dataZakonczona, "emailNajemcy": respNajem.data.emailNajemcy }
+
+                    //     const dane = { "najem": najem, "zgloszenie": dane };
+                    //     nza.post(dane).then(responseNZ => {
+                    //         props.onHide()
+                    //     }).catch(e => {
+                    //         console.log(e)
+                    //     })
+                    // }).catch(e => {
+                    //     console.log(e)
+                    // })
                 }).catch(e => {
                     console.log(e)
                 })

@@ -7,11 +7,13 @@ import { Button, Modal, Form, FormGroup, Row, Container } from 'react-bootstrap'
 import najmyAPI from '../Axios/najmyAPI';
 import nieruchomosciAPI from '../Axios/nieruchomosciAPI';
 import platnosciAPI from '../Axios/platnosciAPI';
+import lokatorzyAPI from '../Axios/lokatorzyAPI';
 
 const FormUmowa = (props) => {
     const na = new najmyAPI();
     const nia = new nieruchomosciAPI();
     const pa = new platnosciAPI();
+    const la = new lokatorzyAPI();
 
     const defaultEmpty = {}
     const [validated, setValidated] = useState(false);
@@ -98,21 +100,27 @@ const FormUmowa = (props) => {
             console.log(form)
 
             const najemDane = {
-                "dataPoczatku": form.dataPoczatku, "dataZakonczona": form.dataZakonczenia, "numerUmowy": form.numerUmowy, "emailNajemcy": form.email, "id_lokalu": props.idLokalu
+                "dataPoczatku": form.dataPoczatku, "dataZakonczona": form.dataZakonczenia, "numerUmowy": form.numerUmowy, "emailNajemcy": form.email, "lokal_id": props.idLokalu
             };
 
             if (form.id_najemcy) {
-                najemDane["id_najemcy"] = form.id_najemcy;
+                najemDane["lokator_id"] = form.id_najemcy;
                 najemDane['emailNajemcy'] = form.email;
             }
             else {
                 najemDane["nowyNajemca"] = { "imie": form.imie, "nazwisko": form.nazwisko, 'PESEL': form.PESEL }
+                la.post(najemDane["nowyNajemca"]).then(
+                    la.getNewest().then(resp => {
+                        najemDane["lokator_id"] = resp.data.id;
+                        najemDane["emailNajemcy"] = form.email;
+                    })
+                )
             }
 
             console.log(najemDane)
 
             nia.getID(props.idNieruchomosci).then(responseNieruchomosci => {
-                console.log(responseNieruchomosci.data.kwotaOplatyAdm)
+                console.log(responseNieruchomosci.data)
                 const kwotaOplatyAdm = responseNieruchomosci.data.kwotaOplatyAdm;
 
                 na.post(najemDane).then(() => {
@@ -204,7 +212,7 @@ const FormUmowa = (props) => {
                                         <Form.Control required pattern="[0-9][0-9]/[0-9]{4}" name="numerUmowy" placeholder="01/2020" onChange={updatePole} />
                                         <Form.Control.Feedback type="invalid">
                                             Pole jest wymagane
-                                    </Form.Control.Feedback>
+                                        </Form.Control.Feedback>
                                     </FormGroup>
                                 </div>
                             </Row>
@@ -215,7 +223,7 @@ const FormUmowa = (props) => {
                                         <Form.Control required type="date" name="dataPoczatku" onChange={updatePole} />
                                         <Form.Control.Feedback type="invalid">
                                             Pole jest wymagane
-                                    </Form.Control.Feedback>
+                                        </Form.Control.Feedback>
                                     </FormGroup>
 
                                 </div>
@@ -225,7 +233,7 @@ const FormUmowa = (props) => {
                                         <Form.Control required type="date" name="dataZakonczenia" onChange={updatePole} />
                                         <Form.Control.Feedback type="invalid">
                                             Pole jest wymagane
-                                    </Form.Control.Feedback>
+                                        </Form.Control.Feedback>
                                     </FormGroup>
                                 </div>
                             </Row>
@@ -286,7 +294,7 @@ const FormUmowa = (props) => {
                                         <Form.Control required name="email" pattern="\w+@\w+.\w+" placeholder="emailtmp@e.pl" onChange={updatePole} />
                                         <Form.Control.Feedback type="invalid">
                                             Pole jest wymagane
-                                            </Form.Control.Feedback>
+                                        </Form.Control.Feedback>
                                     </FormGroup>
                                 </div>
                             </FormGroup>

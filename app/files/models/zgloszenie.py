@@ -16,8 +16,8 @@ class Zgloszenia(db.Model):
     # najemZgloszenie = db.relationship(
     #     "Najmy", secondary="NajmyZgloszenia", backref="zgloszenie")
 
-    def __repr__(self):
-        return f"{{\"id\": \"{self.id}\", \"opis\": \"{self.opis}\" , \"kosztCalkowity\": \"{self.kosztCalkowity}\"}}"
+    # def __repr__(self):
+    #     return f"{{\"id\": \"{self.id}\", \"opis\": \"{self.opis}\" , \"kosztCalkowity\": \"{self.kosztCalkowity}\"}}"
 
-    def return_all(self):
-        return f"{{\"id\": \"{self.id}\", \"opis\": \"{self.opis}\" , \"kosztCalkowity\": \"{self.kosztCalkowity}\", \"kategoriaZgloszenia\": {{\"id\": \"{self.kategoriaZgloszenia.id}\", \"nazwa\" : \"{self.kategoriaZgloszenia.nazwa}\"}}, \"statusZgloszenia\": {{\"id\": \"{self.statusZgloszenia.id}\", \"nazwa\" : \"{self.statusZgloszenia.nazwa}\"}}}}"
+    def __repr__(self):
+        return f"{{\"id\": \"{self.id}\", \"opis\": \"{self.opis}\" , \"kosztCalkowity\": \"{self.kosztCalkowity}\", \"kategoriaZgloszenia\": {{\"id\": \"{self.kategorieZgloszen.id}\", \"nazwa\" : \"{self.kategorieZgloszen.nazwa}\"}}, \"statusZgloszenia\": {{\"id\": \"{self.statusyZgloszen.id}\", \"nazwa\" : \"{self.statusyZgloszen.nazwa}\"}}}}"

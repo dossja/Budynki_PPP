@@ -72,31 +72,31 @@ export default class najmyAPI {
         const la = new lokaleAPI();
         const loa = new lokatorzyAPI();
 
-        const lokalID = await la.getID(najem.id_lokalu);
-        console.log(lokalID)
+        // const lokalID = await la.getID(najem.id_lokalu);
+        // console.log(lokalID)
 
-        // Jeszcze nie ma żadnej płatności
-        const platnosc = [{}];
-        console.log(`Platnosc: ${platnosc}`)
+        // // Jeszcze nie ma żadnej płatności
+        // const platnosc = [{}];
+        // console.log(`Platnosc: ${platnosc}`)
 
-        let lokatorID;
-        if (najem.id_najemcy) {
-            lokatorID = await loa.getID(najem.id_najemcy)
-        }
-        else {
-            const lokatorDane = { "imie": najem.nowyNajemca.imie, "nazwisko": najem.nowyNajemca.nazwisko, "PESEL": najem.nowyNajemca.PESEL }
-            console.log(lokatorDane)
-            lokatorID = await loa.post(lokatorDane)
-        }
-        console.log(`Lokator: ${lokatorID}`)
+        // let lokatorID;
+        // if (najem.id_najemcy) {
+        //     lokatorID = await loa.getID(najem.id_najemcy)
+        // }
+        // else {
+        //     const lokatorDane = { "imie": najem.nowyNajemca.imie, "nazwisko": najem.nowyNajemca.nazwisko, "PESEL": najem.nowyNajemca.PESEL }
+        //     console.log(lokatorDane)
+        //     lokatorID = await loa.post(lokatorDane)
+        // }
+        // console.log(`Lokator: ${lokatorID}`)
 
         const najemLokator = [];
         const najemZgloszenia = [];
 
-        const najemID = { "numerUmowy": najem.numerUmowy, "dataPoczatku": najem.dataPoczatku, "dataZakonczona": najem.dataZakonczona, "emailNajemcy": najem.emailNajemcy, "lokal": lokalID.data, "platnosc": platnosc, "lokator": lokatorID.data, "najemLokator": najemLokator, "najemZgloszenia": najemZgloszenia }
+        // const najemID = { "numerUmowy": najem.numerUmowy, "dataPoczatku": najem.dataPoczatku, "dataZakonczona": najem.dataZakonczona, "emailNajemcy": najem.emailNajemcy, "lokal_id": lokalID.data, "platnosc": platnosc, "lokator": lokatorID.data, "najemLokator": najemLokator, "najemZgloszenia": najemZgloszenia }
 
 
-        const response = await API.post('/najmy', najemID);
+        const response = await API.post('/najmy', najem);
 
         return response;
     }

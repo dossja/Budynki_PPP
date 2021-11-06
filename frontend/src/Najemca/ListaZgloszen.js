@@ -49,18 +49,26 @@ const ListaZgloszen = ({ match: { params: { id } } }) => {
 
       setIdNajmu(idNajmowUzytkownika);
       nza.getTwojeZgloszenia(idNajmowUzytkownika).then(responseNajmyZgloszenia => {
-        console.log(responseNajmyZgloszenia)
+        console.log(responseNajmyZgloszenia.data)
         let zgloszeniaArray = []
-        for (let i in responseNajmyZgloszenia) {
-          zgloszeniaArray.push(responseNajmyZgloszenia[i].zgloszenie)
+        for (let i in responseNajmyZgloszenia.data) {
+          console.log(responseNajmyZgloszenia.data[i]);
+          // zgloszeniaArray.push()
+          za.getID(responseNajmyZgloszenia.data[i].zgloszenie_id).then(respZA => {
+            // const zgl = { "id": resp.id, "opis": resp.opis, "kosztCalkowity": resp.kosztCalkowity }
+            zgloszeniaArray.push(respZA);
+
+          })
         }
         console.log(zgloszeniaArray)
 
-        za.getZgloszeniaArray(zgloszeniaArray).then(response => {
-          setZgloszenia(response)
-        })
+        // for (let i in r)
 
-        // setZgloszenia(responseNajmyZgloszenia);
+        //   za.getZgloszeniaArray(zgloszeniaArray).then(response => {
+        //     setZgloszenia(response)
+        //   })
+
+        setZgloszenia(zgloszeniaArray);
       }).catch(e => {
         console.log(e);
       });;

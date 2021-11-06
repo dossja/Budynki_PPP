@@ -15,19 +15,19 @@ export default class najmyZgloszeniaAPI {
     }
 
     async getTwojeZgloszenia(id) {
-        const response = await API.get(`/najmyZgloszenia`);
+        const response = await API.get(`/najmyZgloszenia/${id}/twoje`);
 
-        const zgloszenia = [];
+        // const zgloszenia = [];
 
-        for (let i in response.data) {
-            for (let j in id) {
-                if (response.data[i].najem.id === id[j]) {
-                    zgloszenia.push(response.data[i])
-                }
-            }
-        }
+        // for (let i in response.data) {
+        //     for (let j in id) {
+        //         if (response.data[i].najem.id === id[j]) {
+        //             zgloszenia.push(response.data[i])
+        //         }
+        //     }
+        // }
 
-        return zgloszenia;
+        return response;
     }
 
     // Metoda POST

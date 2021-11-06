@@ -20,8 +20,8 @@ class Najmy(db.Model):
     # najemZgloszenie = db.relationship(
     #     "NajmyZgloszenia", backref="najem")
 
-    def __repr__(self):
-        return f"{{\"id\": \"{self.id}\", \"numerUmowy\": \"{self.numerUmowy}\" , \"emailNajemcy\": \"{self.emailNajemcy}\", \"dataPoczatku\": \"{self.dataPoczatku}\", \"dataZakonczona\": \"{self.dataZakonczona}\"}}"
+    # def __repr__(self):
+    #     return f"{{\"id\": \"{self.id}\", \"numerUmowy\": \"{self.numerUmowy}\" , \"emailNajemcy\": \"{self.emailNajemcy}\", \"dataPoczatku\": \"{self.dataPoczatku}\", \"dataZakonczona\": \"{self.dataZakonczona}\"}}"
 
-    def return_all(self):
+    def __repr__(self):
         return f"{{\"id\": \"{self.id}\", \"numerUmowy\": \"{self.numerUmowy}\" , \"emailNajemcy\": \"{self.emailNajemcy}\", \"dataPoczatku\": \"{self.dataPoczatku}\", \"dataZakonczona\": \"{self.dataZakonczona}\", \"lokal\": {{\"id\": \"{self.lokal.id}\", \"numerLokalu\": \"{self.lokal.numerLokalu}\" , \"powierzchnia\": \"{self.lokal.powierzchnia}\"}}, \"lokator\": {{\"id\": \"{self.lokator.id}\", \"imie\": \"{self.lokator.imie}\" , \"nazwisko\": \"{self.lokator.nazwisko}\", \"PESEL\": \"{self.lokator.PESEL}\"}}}}"

@@ -14,16 +14,16 @@ def get_najmyZgloszenia():
 
 @app.route('/najmyZgloszenia/<string:id>', methods=['GET'])
 def get_najmyZgloszenia_ID(id):
-    najmyZgloszenia = NajmyZgloszenia.query.get(id)
+    najmyZgloszenia = NajmyZgloszenia.query.filter_by(zgloszenie_id=id).all()
 
     if najmyZgloszenia is not None:
         return jsonify(f"{najmyZgloszenia}"), 200
     return jsonify(error="najmyZgloszenia not found"), 404
 
 
-@app.route('/najmyZgloszenia/twoje', methods=['GET'])
-def get_najmyZgloszenia_Twoje():
-    najmyZgloszenia = NajmyZgloszenia.query.filter_by(najem_id=id)
+@app.route('/najmyZgloszenia/<string:id>/twoje', methods=['GET'])
+def get_najmyZgloszenia_Twoje(id):
+    najmyZgloszenia = NajmyZgloszenia.query.filter_by(najem_id=id).all()
 
     if najmyZgloszenia is not None:
         return jsonify(f"{najmyZgloszenia}"), 200
