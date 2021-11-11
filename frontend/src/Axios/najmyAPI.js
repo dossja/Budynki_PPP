@@ -36,35 +36,79 @@ export default class najmyAPI {
         const la = new lokaleAPI();
         const na = new nieruchomosciAPI();
         const nla = new najmyLokatorzyAPI();
+        const loa = new lokatorzyAPI();
 
-        const resp = await this.get();
+        const data = [];
 
-        let najmyResponse = [];
+        const resp = await API.get(`/najmy/lokator/${idLokatora}`)
+        console.log(resp.data);
+
+        const najmyLokatorzy = [];
 
         for (let i in resp.data) {
-            if (resp.data[i].lokator.id == idLokatora) {
-                najmyResponse.push({ "idNajmu": resp.data[i].id, "idLokalu": resp.data[i].lokal.id, "powierzchnia": resp.data[i].lokal.powierzchnia })
+            const resp2 = await nla.getLokatorzyNajmu(resp.data[i].id);
+            for (let j in resp2.data) {
+                najmyLokatorzy.push(resp2.data[j]);
             }
         }
 
-        for (let i in najmyResponse) {
-            const respLokale = await la.getID(najmyResponse[i].idLokalu);
-            najmyResponse[i]["idNieruchomosci"] = respLokale.data.nieruchomosc.id;
-            najmyResponse[i]["cena"] = respLokale.data.nieruchomosc.kwotaOplatyAdm;
+        console.log(najmyLokatorzy);
+
+        const lokatorzy = [];
+
+        for (let i in najmyLokatorzy) {
+            const resp3 = await loa.getID(najmyLokatorzy[i].lokator_id);
+            lokatorzy.push(resp3.data);
         }
 
-        for (let i in najmyResponse) {
-            const respNieruchomosci = await na.getID(najmyResponse[i].idNieruchomosci);
-            najmyResponse[i]["adres"] = `${respNieruchomosci.data.adres.miejscowosc}, ${respNieruchomosci.data.adres.ulica} ${respNieruchomosci.data.adres.numerBudynku}`
-            najmyResponse[i]["wspolnota"] = respNieruchomosci.data.wspolnota.nazwa;
+        console.log(lokatorzy);
+
+        const dane = [];
+
+        for (let i in resp.data) {
+            let lokal = { "id": resp.data[i].id, "wspolnota": resp.data[i].lokal.nieruchomosc.wspolnota, "adres": resp.data[i].lokal.nieruchomosc.adres, "powierzchnia": resp.data[i].lokal.powierzchnia, "cena": resp.data[i].lokal.nieruchomosc.cenaM2 };
+            const lokatorzyID = [];
+            const resp2 = await nla.getLokatorzyNajmu(resp.data[i].id);
+            for (let j in resp2.data) {
+                lokatorzyID.push(resp2.data[j]);
+            }
+            const lokatorzy = [];
+
+            for (let j in lokatorzyID) {
+                const resp3 = await loa.getID(lokatorzyID[j].lokator_id);
+                lokatorzy.push(resp3.data);
+            }
+            lokal["lokatorzy"] = lokatorzy;
+            dane.push(lokal);
         }
 
-        for (let i in najmyResponse) {
-            const respLokatorzy = await nla.getLokatorzyNajmu(najmyResponse[i].idNajmu);
-            najmyResponse[i]["lokatorzy"] = respLokatorzy;
-        }
+        // let najmyResponse = [];
 
-        return najmyResponse;
+        // for (let i in resp.data) {
+        //     if (resp.data[i].lokator.id == idLokatora) {
+        //         najmyResponse.push({ "idNajmu": resp.data[i].id, "idLokalu": resp.data[i].lokal.id, "powierzchnia": resp.data[i].lokal.powierzchnia })
+        //     }
+        // }
+
+        // for (let i in najmyResponse) {
+        //     const respLokale = await la.getID(najmyResponse[i].idLokalu);
+        //     najmyResponse[i]["idNieruchomosci"] = respLokale.data.nieruchomosc.id;
+        //     najmyResponse[i]["cena"] = respLokale.data.nieruchomosc.kwotaOplatyAdm;
+        // }
+
+        // for (let i in najmyResponse) {
+        //     const respNieruchomosci = await na.getID(najmyResponse[i].idNieruchomosci);
+        //     najmyResponse[i]["adres"] = `${respNieruchomosci.data.adres.miejscowosc}, ${respNieruchomosci.data.adres.ulica} ${respNieruchomosci.data.adres.numerBudynku}`
+        //     najmyResponse[i]["wspolnota"] = respNieruchomosci.data.wspolnota.nazwa;
+        // }
+
+        // for (let i in najmyResponse) {
+        //     const respLokatorzy = await nla.getLokatorzyNajmu(najmyResponse[i].idNajmu);
+        //     najmyResponse[i]["lokatorzy"] = respLokatorzy;
+        // }
+
+        // return najmyResponse;
+        return dane;
     }
 
     // Metoda POST

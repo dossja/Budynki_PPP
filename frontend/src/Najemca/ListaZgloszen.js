@@ -56,11 +56,11 @@ const ListaZgloszen = ({ match: { params: { id } } }) => {
           // zgloszeniaArray.push()
           za.getID(responseNajmyZgloszenia.data[i].zgloszenie_id).then(respZA => {
             // const zgl = { "id": resp.id, "opis": resp.opis, "kosztCalkowity": resp.kosztCalkowity }
-            zgloszeniaArray.push(respZA);
+            console.log(respZA.data);
+            zgloszeniaArray.push(respZA.data);
 
           })
         }
-        console.log(zgloszeniaArray)
 
         // for (let i in r)
 
@@ -68,10 +68,12 @@ const ListaZgloszen = ({ match: { params: { id } } }) => {
         //     setZgloszenia(response)
         //   })
 
+        console.log(zgloszeniaArray)
         setZgloszenia(zgloszeniaArray);
       }).catch(e => {
         console.log(e);
       });;
+      console.log(Zgloszenia);
     }).catch(e => {
       console.log(e);
     });

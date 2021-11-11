@@ -79,7 +79,7 @@ const WynajeteLokale = ({ match: { params: { id } } }) => {
         <tbody>{
           najemDisplay.map(najem => (
             <tr key={najem.idNajmu}>
-              <td className="align-middle">{najem.idNajmu}</td>
+              <td className="align-middle">{najem.id}</td>
               <td className="align-middle">{najem.wspolnota}</td>
               <td className="align-middle">{najem.adres}</td>
               <td className="align-middle">{najem.powierzchnia}</td>

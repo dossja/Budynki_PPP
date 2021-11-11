@@ -21,6 +21,15 @@ def get_najmy_ID(id):
     return jsonify(error="najmy not found"), 404
 
 
+@app.route('/najmy/lokator/<string:id>', methods=['GET'])
+def get_najmy_IDLokatora(id):
+    najmy = Najmy.query.filter_by(lokator_id=id).all()
+
+    if najmy is not None:
+        return jsonify(f"{najmy}"), 200
+    return jsonify(error="najmy not found"), 404
+
+
 @app.route('/najmy/newest', methods=['GET'])
 def get_najmy_Newest():
     najmy = Najmy.query.order_by(Najmy.id.desc()).first()

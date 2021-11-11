@@ -15,16 +15,9 @@ export default class najmyLokatorzyAPI {
     }
 
     async getLokatorzyNajmu(id) {
-        const resp = await this.get();
-        let lokatorzy = []
+        const response = await API.get(`/najmyLokatorzy/${id}/lokatorzy`);
 
-        for (let i in resp.data) {
-            if (resp.data[i].najem.id == id) {
-                lokatorzy.push(resp.data[i].lokator)
-            }
-        }
-
-        return lokatorzy;
+        return response;
     }
 
     // Metoda POST
