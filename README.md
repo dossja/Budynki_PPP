@@ -19,3 +19,6 @@ Oraz będąc w katalogu /frontend użyć:
 ## Korzystanie z aplikacji
 Korzystanie z aplikacji jest możliwe w dowolnej przeglądarce pod adresem
 `http://localhost:3000/`
+
+
+https://stackoverflow.com/questions/57605441/error-this-is-probably-not-a-problem-with-npm-there-is-likely-additional-loggi

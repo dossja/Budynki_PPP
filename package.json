@@ -6,5 +6,8 @@
         "stop-docker": "docker-compose down",
         "clean-docker": "docker system prune -af",
         "clean:volumes-docker": "docker volume prune -f"
+    },
+    "dependencies": {
+        "package.json": "^2.0.1"
     }
 }
