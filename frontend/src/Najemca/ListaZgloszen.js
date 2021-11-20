@@ -39,6 +39,7 @@ const ListaZgloszen = ({ match: { params: { id } } }) => {
     na.get().then(responseNajmy => {
       let najmyUzytkownika = [];
       let idNajmowUzytkownika = [];
+      let zgloszeniaArray = [];
       console.log(responseNajmy.data)
       for (let i in responseNajmy.data) {
         if (responseNajmy.data[i].lokator.id == id) {
@@ -50,15 +51,16 @@ const ListaZgloszen = ({ match: { params: { id } } }) => {
       setIdNajmu(idNajmowUzytkownika);
       nza.getTwojeZgloszenia(idNajmowUzytkownika).then(responseNajmyZgloszenia => {
         console.log(responseNajmyZgloszenia.data)
-        let zgloszeniaArray = []
         for (let i in responseNajmyZgloszenia.data) {
           console.log(responseNajmyZgloszenia.data[i]);
+          console.log(responseNajmyZgloszenia.data[i].zgloszenie_id);
           // zgloszeniaArray.push()
           za.getID(responseNajmyZgloszenia.data[i].zgloszenie_id).then(respZA => {
             // const zgl = { "id": resp.id, "opis": resp.opis, "kosztCalkowity": resp.kosztCalkowity }
             console.log(respZA.data);
             zgloszeniaArray.push(respZA.data);
 
+            console.log(zgloszeniaArray);
           })
         }
 
@@ -67,13 +69,11 @@ const ListaZgloszen = ({ match: { params: { id } } }) => {
         //   za.getZgloszeniaArray(zgloszeniaArray).then(response => {
         //     setZgloszenia(response)
         //   })
-
-        console.log(zgloszeniaArray)
-        setZgloszenia(zgloszeniaArray);
-      }).catch(e => {
+      }).then(
+        setZgloszenia(zgloszeniaArray)
+      ).catch(e => {
         console.log(e);
-      });;
-      console.log(Zgloszenia);
+      });
     }).catch(e => {
       console.log(e);
     });

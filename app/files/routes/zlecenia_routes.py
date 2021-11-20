@@ -37,16 +37,16 @@ def post_zlecenia():
     if koszt == '':
         return jsonify(error="koszt is empty"), 400
     terminWykonania = datas.get('terminWykonania', '')
-    if terminWykonania != '':
+    if terminWykonania == '':
         return jsonify(error="terminWykonania is empty"), 400
     dataWykonania = datas.get('dataWykonania', '')
-    if dataWykonania != '':
+    if dataWykonania == '':
         return jsonify(error="dataWykonania is empty"), 400
     zgloszenie_id = datas.get('zgloszenie_id', '')
-    if zgloszenie_id != '':
+    if zgloszenie_id == '':
         return jsonify(error="zgloszenie_id is empty"), 400
     firmaPodwykonawcza_id = datas.get('firmaPodwykonawcza_id', '')
-    if firmaPodwykonawcza_id != '':
+    if firmaPodwykonawcza_id == '':
         return jsonify(error="firmaPodwykonawcza_id is empty"), 400
 
     model = Zlecenia()

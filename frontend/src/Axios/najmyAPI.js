@@ -41,7 +41,7 @@ export default class najmyAPI {
         const data = [];
 
         const resp = await API.get(`/najmy/lokator/${idLokatora}`)
-        console.log(resp.data);
+        // console.log(resp.data);
 
         const najmyLokatorzy = [];
 
@@ -52,7 +52,7 @@ export default class najmyAPI {
             }
         }
 
-        console.log(najmyLokatorzy);
+        // console.log(najmyLokatorzy);
 
         const lokatorzy = [];
 
@@ -61,7 +61,7 @@ export default class najmyAPI {
             lokatorzy.push(resp3.data);
         }
 
-        console.log(lokatorzy);
+        // console.log(lokatorzy);
 
         const dane = [];
 

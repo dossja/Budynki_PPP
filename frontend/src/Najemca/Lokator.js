@@ -46,14 +46,13 @@ const Lokator = (props) => {
 
             const dane = { "imie": form.imie, "nazwisko": form.nazwisko, "PESEL": form.PESEL }
 
+            console.log(dane);
             la.post(dane).then(resp => {
-                console.log(resp.data)
-                na.getID(props.idNajmu).then(response => {
-                    const najem = { "id": response.data.id, "numerUmowy": response.data.numerUmowy, "dataPoczatku": response.data.dataPoczatku, "dataZakonczona": response.data.dataZakonczona, "emailNajemcy": response.data.emailNajemcy }
-
-                    const danePost = { "lokator": resp.data, "najem": najem }
-                    nla.post(danePost);
-                })
+                console.log(resp.data.id)
+                console.log(props.idNajmu);
+                const danePost = { "lokator_id": resp.data.id, "najem_id": props.idNajmu };
+                console.log(danePost);
+                nla.post(danePost);
             }).then(resp => {
                 props.onHide();
                 setValidated(false);
@@ -94,7 +93,7 @@ const Lokator = (props) => {
                                         <Form.Control required name="imie" placeholder="Jan" onChange={updatePole} />
                                         <Form.Control.Feedback type="invalid">
                                             Imię powinno rozpoczynać się wielką literą i składać z co najmniej 3 liter
-                                    </Form.Control.Feedback>
+                                        </Form.Control.Feedback>
                                     </FormGroup>
                                 </div>
                                 <div className="col">
@@ -103,7 +102,7 @@ const Lokator = (props) => {
                                         <Form.Control name='nazwisko' required placeholder="Kowalski" onChange={updatePole} />
                                         <Form.Control.Feedback type="invalid" >
                                             Nazwisko powinno składać się z co najmniej 3 znaków
-                                    </Form.Control.Feedback>
+                                        </Form.Control.Feedback>
                                     </FormGroup>
                                 </div>
                                 <div className="col">
@@ -112,7 +111,7 @@ const Lokator = (props) => {
                                         <Form.Control name='PESEL' required placeholder="01234567890" onChange={updatePole} pattern="[0-9]{11}" />
                                         <Form.Control.Feedback type="invalid">
                                             PESEL powinien składać się z 11 cyfr
-                                    </Form.Control.Feedback>
+                                        </Form.Control.Feedback>
                                     </FormGroup>
                                 </div>
                             </div>

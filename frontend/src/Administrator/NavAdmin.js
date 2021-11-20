@@ -17,7 +17,7 @@ function NavAdmin(props) {
                     <Nav.Link href='/wspolnoty'>Wspólnoty</Nav.Link>
                     <Nav.Link href='/platnosci'>Płatności</Nav.Link>
                     <Nav.Link href='/zgloszenia'>Zgłoszenia</Nav.Link>
-                    <Nav.Link href='/bilans'>Bilans</Nav.Link>
+                    {/* <Nav.Link href='/bilans'>Bilans</Nav.Link> */}
                 </Nav>
                 <Nav className="mr-right">
                     <Nav.Link className='align-right' href='/login' onClick={event => { setUserType("") }}>Wyloguj</Nav.Link>

@@ -102,7 +102,7 @@ const WynajeteLokale = ({ match: { params: { id } } }) => {
                   </thead>
                 </Table></td>
               <td className="align-middle">
-                <Button size='sm' variant="success" onClick={() => btnDodajLokatora(najem.idNajmu)}>Dodaj lokatora</Button>
+                <Button size='sm' variant="success" onClick={() => btnDodajLokatora(najem.id)}>Dodaj lokatora</Button>
               </td>
             </tr>
           ))}

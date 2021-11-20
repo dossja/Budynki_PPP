@@ -12,8 +12,8 @@ class Platnosci(db.Model):
     najem_id = db.Column(
         db.Integer, db.ForeignKey("najmy.id"))
 
-    def __repr__(self):
-        return f"{{\"id\": \"{self.id}\", \"kwota\": \"{self.kwota}\" , \"terminPlatnosci\": \"{self.terminPlatnosci}\", \"dataPlatnosci\": \"{self.dataPlatnosci}\"}}"
+    # def __repr__(self):
+    #     return f"{{\"id\": \"{self.id}\", \"kwota\": \"{self.kwota}\" , \"terminPlatnosci\": \"{self.terminPlatnosci}\", \"dataPlatnosci\": \"{self.dataPlatnosci}\"}}"
 
-    def return_all(self):
-        return f"{{\"id\": \"{self.id}\", \"kwota\": \"{self.kwota}\" , \"terminPlatnosci\": \"{self.terminPlatnosci}\", \"dataPlatnosci\": \"{self.dataPlatnosci}\"}}, \"typPlatnosci\": {{\"id\": \"{self.typPlatnosci.id}\", \"nazwa\" : \"{self.typPlatnosci.nazwa}\"}}}}"
+    def __repr__(self):
+        return f"{{\"id\": \"{self.id}\", \"kwota\": \"{self.kwota}\" , \"terminPlatnosci\": \"{self.terminPlatnosci}\", \"dataPlatnosci\": \"{self.dataPlatnosci}\", \"typPlatnosci\": {{\"id\": \"{self.typPlatnosci.id}\", \"nazwa\" : \"{self.typPlatnosci.nazwa}\"}}, \"najem\": {{\"id\": \"{self.najem.id}\", \"numerUmowy\" : \"{self.najem.numerUmowy}\", \"emailNajemcy\" : \"{self.najem.emailNajemcy}\"}}}}"

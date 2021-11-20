@@ -32,7 +32,7 @@ def get_lokale_Newest(id):
 
 @app.route('/lokale/<string:id>/biland/<string:pocz>&<string:kon>', methods=['GET'])
 def get_lokale_ID_Bilans(id, pocz, kon):
-    lokale = Lokale.query.all()
+    lokale = Lokale.query.filter(Lokale.da)
 
     if lokale is not None:
         return jsonify(f"{lokale}"), 200

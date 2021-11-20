@@ -44,7 +44,7 @@ const ZgloszeniaAdm = () => {
 
         za.getID(id).then(response => {
             console.log(response.data)
-            const dane = { "id": response.data.id, "opis": response.data.opis, "kosztCalkowity": response.data.kosztCalkowity, "statusZgloszenia": { "id": 2, "nazwa": "przyjete" }, "kategoriaZgloszenia": { "id": response.data.kategoriaZgloszenia.id, "nazwa": response.data.kategoriaZgloszenia.nazwa } };
+            const dane = { "id": response.data.id, "opis": response.data.opis, "kosztCalkowity": response.data.kosztCalkowity, "statusZgloszenia_id": 2, "kategoriaZgloszenia_id": response.data.kategoriaZgloszenia.id };
             console.log(dane)
 
             za.put(id, dane).then(resp => { setAktualizuj(true) })
@@ -55,7 +55,7 @@ const ZgloszeniaAdm = () => {
         console.log(`Odrzuc id: ${id}`)
 
         za.getID(id).then(response => {
-            const dane = { "id": response.data.id, "opis": response.data.opis, "kosztCalkowity": response.data.kosztCalkowity, "statusZgloszenia": { "id": 4, "nazwa": "zrealizowane" }, "kategoriaZgloszenia": { "id": response.data.kategoriaZgloszenia.id, "nazwa": response.data.kategoriaZgloszenia.nazwa } };
+            const dane = { "id": response.data.id, "opis": response.data.opis, "kosztCalkowity": response.data.kosztCalkowity, "statusZgloszenia_id": 4, "kategoriaZgloszenia_id": response.data.kategoriaZgloszenia.id };
 
             za.put(id, dane).then(resp => { setAktualizuj(true) })
         })
@@ -72,7 +72,7 @@ const ZgloszeniaAdm = () => {
         console.log(`Realizuj id: ${id}`)
 
         za.getID(id).then(response => {
-            const dane = { "id": response.data.id, "opis": response.data.opis, "kosztCalkowity": response.data.kosztCalkowity, "statusZgloszenia": { "id": 3, "nazwa": "w_realizacji" }, "kategoriaZgloszenia": { "id": response.data.kategoriaZgloszenia.id, "nazwa": response.data.kategoriaZgloszenia.nazwa } };
+            const dane = { "id": response.data.id, "opis": response.data.opis, "kosztCalkowity": response.data.kosztCalkowity, "statusZgloszenia_id": 3, "kategoriaZgloszenia_id": response.data.kategoriaZgloszenia.id };
 
             za.put(id, dane).then(resp => { setAktualizuj(true) })
         })
@@ -81,7 +81,7 @@ const ZgloszeniaAdm = () => {
         console.log(`Zrealizuj id: ${id}`)
 
         za.getID(id).then(response => {
-            const dane = { "id": response.data.id, "opis": response.data.opis, "kosztCalkowity": response.data.kosztCalkowity, "statusZgloszenia": { "id": 4, "nazwa": "zrealizowane" }, "kategoriaZgloszenia": { "id": response.data.kategoriaZgloszenia.id, "nazwa": response.data.kategoriaZgloszenia.nazwa } };
+            const dane = { "id": response.data.id, "opis": response.data.opis, "kosztCalkowity": response.data.kosztCalkowity, "statusZgloszenia_id": 4, "kategoriaZgloszenia_id": response.data.kategoriaZgloszenia.id };
 
             za.put(id, dane).then(resp => { setAktualizuj(true) })
         })
