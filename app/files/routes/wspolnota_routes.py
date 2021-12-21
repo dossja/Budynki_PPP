@@ -49,8 +49,8 @@ def post_wspolnoty():
     if NIP == '':
         return jsonify(error="NIP is empty"), 400
     REGON = datas.get('REGON', '')
-    if REGON == '':
-        return jsonify(error="REGON is empty"), 400
+    # if REGON == '':
+    #     return jsonify(error="REGON is empty"), 400
     email = datas.get('email', '')
     if email == '':
         return jsonify(error="email is empty"), 400
