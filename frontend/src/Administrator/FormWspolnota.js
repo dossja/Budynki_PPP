@@ -45,7 +45,9 @@ const FormWspolnota = (props) => {
             setValidated(true);
             wa.post({
                 'nazwa': form.nazwa, "NIP": form.NIP, "REGON": form.REGON, "email": form.email, "telefon": form.telefon, "adres": { "ulica": form.ulica, "numerBudynku": form.numerBudynku, "miejscowosc": form.miejscowosc }
-            }).then(() => { setForm(defaultEmpty); setValidated(false); props.onHide() });
+            }).then(() => { setForm(defaultEmpty); setValidated(false); props.onHide() }).catch(e => {
+                console.log(e);
+            });
         }
 
     }

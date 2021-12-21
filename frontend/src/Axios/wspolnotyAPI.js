@@ -41,7 +41,7 @@ export default class wspolnotyAPI {
 
         const adresID = await aa.getNewest();
 
-        const wspolnotaID = { "nazwa": wspolnota.nazwa, "NIP": wspolnota.NIP, "REGON": wspolnota.REGON, "email": wspolnota.email, "telefon": wspolnota.telefon, "adres": adresID.data }
+        const wspolnotaID = { "nazwa": wspolnota.nazwa, "NIP": wspolnota.NIP, "REGON": wspolnota.REGON, "email": wspolnota.email, "telefon": wspolnota.telefon, "adres_id": adresID.data.id }
 
         await API.post('/wspolnoty', wspolnotaID);
 

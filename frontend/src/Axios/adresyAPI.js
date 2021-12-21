@@ -14,14 +14,10 @@ export default class adresyAPI {
         return response;
     }
 
-    async getNewest(id) {
-        const resp = await this.get();
+    async getNewest() {
+        const response = await API.get(`/adresy/newest`);
 
-        const len = resp.data.length;
-
-        const output = await this.getID(len);
-
-        return output;
+        return response;
     }
 
     // Metoda POST
