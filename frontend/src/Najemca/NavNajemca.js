@@ -11,7 +11,7 @@ function NavNajemca(props) {
     const [aktualizuj, setAktualizuj] = React.useState(true);
     const [lokatorzy, setLokatorzy] = React.useState([]);
     // Tu zmiana indeksu lokatora
-    const [value, setValue] = useState(1);
+    const [value, setValue] = useState(2);
 
     useEffect(() => {
         setAktualizuj(false);
@@ -23,17 +23,10 @@ function NavNajemca(props) {
         na.get()
             .then(response => {
                 for (let i in response.data) {
-                    if (i == 0) {
-                        listaNajmyLokatorzy.push(response.data[i].lokator)
-                    }
+                    let lokator = response.data[i].lokator                    
+                    if(!lokatorWTablicy(lokator.id, listaNajmyLokatorzy))
+                        listaNajmyLokatorzy.push(lokator)
 
-                    else {
-                        const dodaj = lokatorWTablicy(response.data[i].lokator.id, listaNajmyLokatorzy)
-
-                        if (dodaj == true) {
-                            listaNajmyLokatorzy.push(response.data[i].lokator)
-                        }
-                    }
                 }
                 setLokatorzy(listaNajmyLokatorzy);
             })
@@ -44,13 +37,13 @@ function NavNajemca(props) {
 
 
     const lokatorWTablicy = (id, tablica) => {
-        let dodaj = true;
+        let value = false;
         for (let i in tablica) {
             if (tablica[i].id == id) {
-                dodaj = false;
+                value = true;
             }
         }
-        return dodaj;
+        return value;
     }
 
     const handleSelect = (e) => {

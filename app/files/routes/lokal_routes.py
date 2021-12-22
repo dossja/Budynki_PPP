@@ -22,8 +22,8 @@ def get_lokale_ID(id):
 
 
 @app.route('/lokale/newest', methods=['GET'])
-def get_lokale_Newest(id):
-    lokale = Lokale.query.order_by(lokale.id.desc()).first()
+def get_lokale_Newest():
+    lokale = Lokale.query.order_by(Lokale.id.desc()).first()
 
     if lokale is not None:
         return jsonify(f"{lokale}"), 200

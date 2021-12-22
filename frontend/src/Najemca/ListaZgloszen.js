@@ -36,10 +36,11 @@ const ListaZgloszen = ({ match: { params: { id } } }) => {
   }
 
   const getZgloszenia = () => {
+    
+    let zgloszeniaArray = [];
     na.get().then(responseNajmy => {
       let najmyUzytkownika = [];
       let idNajmowUzytkownika = [];
-      let zgloszeniaArray = [];
       console.log(responseNajmy.data)
       for (let i in responseNajmy.data) {
         if (responseNajmy.data[i].lokator.id == id) {
@@ -49,31 +50,33 @@ const ListaZgloszen = ({ match: { params: { id } } }) => {
       }
 
       setIdNajmu(idNajmowUzytkownika);
-      nza.getTwojeZgloszenia(idNajmowUzytkownika).then(responseNajmyZgloszenia => {
-        console.log(responseNajmyZgloszenia.data)
-        for (let i in responseNajmyZgloszenia.data) {
-          console.log(responseNajmyZgloszenia.data[i]);
-          console.log(responseNajmyZgloszenia.data[i].zgloszenie_id);
-          // zgloszeniaArray.push()
-          za.getID(responseNajmyZgloszenia.data[i].zgloszenie_id).then(respZA => {
-            // const zgl = { "id": resp.id, "opis": resp.opis, "kosztCalkowity": resp.kosztCalkowity }
-            console.log(respZA.data);
-            zgloszeniaArray.push(respZA.data);
-
-            console.log(zgloszeniaArray);
-          })
-        }
-
-        // for (let i in r)
-
-        //   za.getZgloszeniaArray(zgloszeniaArray).then(response => {
-        //     setZgloszenia(response)
-        //   })
-      }).then(
-        setZgloszenia(zgloszeniaArray)
-      ).catch(e => {
-        console.log(e);
-      });
+      for(let i in idNajmowUzytkownika){
+        nza.getTwojeZgloszenia(idNajmowUzytkownika[i]).then(responseNajmyZgloszenia => {
+          console.log(responseNajmyZgloszenia.data)
+          for (let i in responseNajmyZgloszenia.data) {
+            console.log(responseNajmyZgloszenia.data[i]);
+            console.log(responseNajmyZgloszenia.data[i].zgloszenie_id);
+            // zgloszeniaArray.push()
+            za.getID(responseNajmyZgloszenia.data[i].zgloszenie_id).then(respZA => {
+              // const zgl = { "id": resp.id, "opis": resp.opis, "kosztCalkowity": resp.kosztCalkowity }
+              console.log(respZA.data);
+              zgloszeniaArray.push(respZA.data);
+              setZgloszenia(zgloszeniaArray);
+  
+              console.log(zgloszeniaArray);
+            })
+          }
+  
+          // for (let i in r)
+  
+          //   za.getZgloszeniaArray(zgloszeniaArray).then(response => {
+          //     setZgloszenia(response)
+          //   })
+        }).catch(e => {
+          console.log(e);
+        });
+      }
+      
     }).catch(e => {
       console.log(e);
     });

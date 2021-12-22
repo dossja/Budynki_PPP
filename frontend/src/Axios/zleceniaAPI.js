@@ -13,7 +13,11 @@ export default class zleceniaAPI {
 
         return response;
     }
+    async getZgloszeniaZlecenia(id) {
+        const response = await API.get(`/zlecenia/zgloszenia/${id}`);
 
+        return response;
+    }
     // Metoda POST
     async post(zlecenie) {
         const response = await API.post('/zlecenia', zlecenie);

@@ -23,12 +23,20 @@ def get_firmyPodwykonawcze_ID(id):
 
 @app.route('/firmyPodwykonawcze/newest', methods=['GET'])
 def get_firmyPodwykonawcze_Newest():
-    firmyPodwykonawcze = FirmyPodwykonawcze.query.order_by(
-        FirmyPodwykonawcze.id.desc()).first()
+    firmyPodwykonawcze = FirmyPodwykonawcze.query.order_by(FirmyPodwykonawcze.id.desc()).first()
 
     if firmyPodwykonawcze is not None:
         return jsonify(f"{firmyPodwykonawcze}"), 200
     return jsonify(error="firmyPodwykonawcze not found"), 404
+
+@app.route('/firmyPodwykonawcze/newestId', methods=['GET'])
+def get_firmyPodwykonawcze_NewestId():
+    firmyPodwykonawcze = FirmyPodwykonawcze.query.order_by(FirmyPodwykonawcze.id.desc()).first()
+    datas = firmyPodwykonawcze.id
+    if firmyPodwykonawcze is not None:
+        return jsonify(f"{datas}"), 200
+    return jsonify(error="firmyPodwykonawcze not found"), 404
+
 
 
 @app.route("/firmyPodwykonawcze", methods=['POST'])

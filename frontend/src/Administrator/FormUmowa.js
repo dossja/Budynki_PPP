@@ -106,6 +106,7 @@ const FormUmowa = (props) => {
             if (form.id_najemcy) {
                 najemDane["lokator_id"] = form.id_najemcy;
                 najemDane['emailNajemcy'] = form.email;
+                dodajNajem(najemDane, event, props, form)
             }
             else {
                 najemDane["nowyNajemca"] = { "imie": form.imie, "nazwisko": form.nazwisko, 'PESEL': form.PESEL }
@@ -113,32 +114,36 @@ const FormUmowa = (props) => {
                     la.getNewest().then(resp => {
                         najemDane["lokator_id"] = resp.data.id;
                         najemDane["emailNajemcy"] = form.email;
-                    })
+                    }).then(dodajNajem(najemDane, event, props, form))
                 )
             }
 
-            console.log(najemDane)
+            
+        }
 
-            nia.getID(props.idNieruchomosci).then(responseNieruchomosci => {
-                console.log(responseNieruchomosci.data)
-                const kwotaOplatyAdm = responseNieruchomosci.data.kwotaOplatyAdm;
+    }
 
-                na.post(najemDane).then(() => {
-                    na.getNewest().then((response) => {
-                        const najemDane = { 'id': response.data.id, 'numerUmowy': response.data.numerUmowy, 'dataPoczatku': response.data.dataPoczatku, 'dataZakonczona': response.data.dataZakonczona, 'emailNajemcy': response.data.emailNajemcy }
-                        utworzPlatnosci(form.dataPoczatku, form.dataZakonczenia, najemDane, kwotaOplatyAdm);
-                    }).catch(e => {
-                        console.log(e);
-                    });
-                    setForm(defaultEmpty); setValidated(false); props.onHide()
+    const dodajNajem = (najemDane, event, props, form) =>{
+        console.log(najemDane)
+
+        nia.getID(props.idNieruchomosci).then(responseNieruchomosci => {
+            console.log(responseNieruchomosci.data)
+            const kwotaOplatyAdm = responseNieruchomosci.data.kwotaOplatyAdm;
+
+            na.post(najemDane).then(() => {
+                na.getNewest().then((response) => {
+                    const najemDane = { 'id': response.data.id, 'numerUmowy': response.data.numerUmowy, 'dataPoczatku': response.data.dataPoczatku, 'dataZakonczona': response.data.dataZakonczona, 'emailNajemcy': response.data.emailNajemcy }
+                    utworzPlatnosci(form.dataPoczatku, form.dataZakonczenia, najemDane, kwotaOplatyAdm);
                 }).catch(e => {
                     console.log(e);
                 });
-            }).then(() => { setForm(defaultEmpty); setValidated(false); props.onHide() });
+                setForm(defaultEmpty); setValidated(false); props.onHide()
+            }).catch(e => {
+                console.log(e);
+            });
+        }).then(() => { setForm(defaultEmpty); setValidated(false); props.onHide() });
 
-            setForm(defaultEmpty); setValidated(false); props.onHide()
-        }
-
+        setForm(defaultEmpty); setValidated(false); props.onHide()
     }
 
     async function utworzPlatnosci(dataPoczatku, dataZakonczenia, najemPlatnosci, kwota) {
@@ -160,7 +165,7 @@ const FormUmowa = (props) => {
             console.log(newDate)
             console.log(najemPlatnosci)
 
-            const platnosc = { "kwota": kwota, 'terminPlatnosci': newDate, "dataPlatnosci": '1900-01-01', "typPlatnosci": { "id": 1, "nazwa": 'karta' }, najem: najemPlatnosci }
+            const platnosc = { "kwota": kwota, "terminPlatnosci": newDate, "dataPlatnosci": '1900-01-01', "typPlatnosci_id": 1, "najem_id": najemPlatnosci.id }
 
             await pa.post(platnosc);
 

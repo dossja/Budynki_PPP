@@ -15,13 +15,9 @@ export default class platnosciAPI {
     }
 
     async getNewest() {
-        const resp = await this.get();
+        const response = await API.get(`/platnosci/newest`);
 
-        const len = resp.data.length;
-
-        const output = await this.getID(len);
-
-        return output;
+        return response;
     }
 
     // Metoda POST

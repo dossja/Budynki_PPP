@@ -23,7 +23,7 @@ def get_zgloszenia_ID(id):
 
 @app.route('/zgloszenia/newest', methods=['GET'])
 def get_zgloszenia_Newest():
-    zgloszenia = Zgloszenia.query.order_by(zgloszenia.id.desc()).first()
+    zgloszenia = Zgloszenia.query.order_by(Zgloszenia.id.desc()).first()
 
     if zgloszenia is not None:
         return jsonify(f"{zgloszenia}"), 200

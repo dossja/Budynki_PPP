@@ -15,13 +15,15 @@ export default class firmyPodwykonawczeAPI {
     }
 
     async getNewest() {
-        const resp = await this.get();
+        const response = await API.get(`/firmyPodwykonawcze/newest`);
 
-        const len = resp.data.length;
+        return response;
+    }
 
-        const output = await this.getID(len);
+    async getNewestId() {
+        const response = await API.get(`/firmyPodwykonawcze/newestId`);
 
-        return output;
+        return response;
     }
 
     // Metoda POST

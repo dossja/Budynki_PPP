@@ -49,7 +49,7 @@ const Platnosci = () => {
     const w_terminie = (data) => {
         return (
             <>
-                <Alert variant="success" >Zapłacono: {data}</Alert>
+                <Alert variant="success" >Zapłacono: {data.slice(0,10)}</Alert>
             </>
         )
     }
@@ -57,7 +57,7 @@ const Platnosci = () => {
     const po_terminie = (data) => {
         return (
             <>
-                <Alert variant="warning" >Zapłacono: {data}</Alert>
+                <Alert variant="warning" >Zapłacono: {data.slice(0,10)}</Alert>
             </>
         )
     }
@@ -97,7 +97,7 @@ const Platnosci = () => {
                         <tr key={Platnosci.id}>
                             <td className="align-middle">{Platnosci.id}</td>
                             <td className="align-middle">{Platnosci.kwota}</td>
-                            <td className="align-middle">{Platnosci.terminPlatnosci}</td>
+                            <td className="align-middle">{Platnosci.terminPlatnosci.slice(0,10)}</td>
                             <td className="align-middle text-center">{
                                 (
                                     (() => {

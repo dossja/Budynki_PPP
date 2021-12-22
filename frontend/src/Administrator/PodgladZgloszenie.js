@@ -68,15 +68,13 @@ const PodgladZgloszenie = (props) => {
 
     function getZlecenia() {
         if (props.id !== null && kontynuuj === true) {
-            zla.get().then(response => {
+            zla.getZgloszeniaZlecenia(props.id).then(response => {
                 setKontynuuj(false);
                 let zlecenia = []
                 let suma = 0;
                 for (let i in response.data) {
-                    if (response.data[i].zgloszenie.id === props.id) {
                         suma += response.data[i].koszt;
                         zlecenia.push(response.data[i]);
-                    }
                 }
                 getZgloszenia(suma);
                 const sumaString = `${suma} zł`
@@ -150,7 +148,7 @@ const PodgladZgloszenie = (props) => {
     const w_terminie = (data) => {
         return (
             <>
-                <Alert className="align-middle text-center" variant="success" >Wykonano: {data}</Alert>
+                <Alert className="align-middle text-center" variant="success" >Wykonano: {data.slice(0,10)}</Alert>
             </>
         )
     }
@@ -158,7 +156,7 @@ const PodgladZgloszenie = (props) => {
     const po_terminie = (data) => {
         return (
             <>
-                <Alert className="align-middle text-center" variant="warning" >Wykonano: {data}</Alert>
+                <Alert className="align-middle text-center" variant="warning" >Wykonano: {data.slice(0,10)}</Alert>
             </>
         )
     }
@@ -227,9 +225,9 @@ const PodgladZgloszenie = (props) => {
                                 <thead className="thead-dark">
                                     <tr>
                                         <th className="align-middle" scope="col">Lp.</th>
-                                        <th className="align-middle" scope="col">Firma</th>
-                                        <th className="align-middle" scope="col">Data zlecenia</th>
+                                        {/* <th className="align-middle" scope="col">Firma</th> */}
                                         <th className="align-middle" scope="col">Termin wykonania</th>
+                                        <th className="align-middle" scope="col">Data wykonania</th>
                                         <th className="align-middle" scope="col">Koszt</th>
                                         <th className="align-middle" scope="col"></th>
                                     </tr>
@@ -238,13 +236,13 @@ const PodgladZgloszenie = (props) => {
                                     Zlecenia.map(Zlecenia => (
                                         <tr key={Zlecenia.id}>
                                             <td className="align-middle">{Zlecenia.id}</td>
-                                            <td className="align-middle">{Zlecenia.firmaPodwykonawcza.nazwa}</td>
-                                            <td className="align-middle">{Zlecenia.terminWykonania}</td>
+                                            {/* <td className="align-middle">{Zlecenia.firmaPodwykonawcza.nazwa}</td> */}
+                                            <td className="align-middle">{Zlecenia.terminWykonania.slice(0,10)}</td>
                                             <td className="align-middle">{
                                                 (
                                                     (() => {
                                                         switch (Zlecenia.dataWykonania) {
-                                                            case "1900-01-01": return do_wykonania()
+                                                            case "1900-01-01 00:00:00": return do_wykonania()
 
                                                             default: return wykonane(Zlecenia.dataWykonania, Zlecenia.terminWykonania);
                                                         }
@@ -255,7 +253,7 @@ const PodgladZgloszenie = (props) => {
                                                 {(
                                                     (() => {
                                                         switch (Zlecenia.dataWykonania) {
-                                                            case "1900-01-01": return (<><ButtonGroup size='sm' aria-label="Basic example">
+                                                            case "1900-01-01 00:00:00": return (<><ButtonGroup size='sm' aria-label="Basic example">
                                                                 <Button variant="danger" onClick={() => btnUsun(Zlecenia.id)}>Usuń</Button>
                                                                 <Button variant="secondary" onClick={() => btnEdytuj(Zlecenia.id)}>Edytuj</Button>
                                                                 <Button variant="success" onClick={() => btnZakoncz(Zlecenia.id)}>Zakończ</Button>

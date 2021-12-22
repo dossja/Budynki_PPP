@@ -8,10 +8,12 @@ import Header from "../Header.js";
 import PlatnosciModal from "./PlatnosciModal";
 
 import najmyAPI from "../Axios/najmyAPI";
+import platnosciAPI from "../Axios/platnosciAPI";
 
 
 const PlatnosciNaj = ({ match: { params: { id } } }) => {
     const na = new najmyAPI();
+    const pa = new platnosciAPI();
 
     const [wyswietlPlatnosc, setWyswietlPlatnosc] = React.useState(false)
 
@@ -28,26 +30,28 @@ const PlatnosciNaj = ({ match: { params: { id } } }) => {
     }, [aktualizuj]);
 
     const getPlatnosci = () => {
-        na.get().then(response => {
-            let mojeNajmy = []
-            for (let i in response.data) {
-                if (response.data[i].lokator.id == id)
-                    mojeNajmy.push(response.data[i])
-            }
-
-            let mojePlatnosci = []
-            let indeks = 1;
-            for (let i in mojeNajmy) {
-                for (let j in mojeNajmy[i].platnosc) {
-                    let nowaPlatnosc = { "id": indeks, "numerUmowy": mojeNajmy[i].numerUmowy, }
-                    indeks += 1;
-                    nowaPlatnosc["platnosc"] = { "idPlatnosci": mojeNajmy[i].platnosc[j].id, "terminPlatnosci": mojeNajmy[i].platnosc[j].terminPlatnosci, "dataPlatnosci": mojeNajmy[i].platnosc[j].dataPlatnosci, "kwota": mojeNajmy[i].platnosc[j].kwota }
-
-                    mojePlatnosci.push(nowaPlatnosc)
-                }
-            }
+        na.getMojeNajmy(id).then(response => {
+            let mojeNajmy = response
+            pa.get().then(response =>{
+                let platnosci = response.data
+                let mojePlatnosci = []
+                let indeks = 1;
+                for (let i in mojeNajmy) {
+                    for (let j in platnosci) {
+                        if(platnosci[j].najem.id == mojeNajmy[i].id){
+                            let nowaPlatnosc = { "id": indeks, "numerUmowy": mojeNajmy[i].numerUmowy}
+                            indeks += 1;
+                            nowaPlatnosc["platnosc"] = { "idPlatnosci": platnosci[j].id, "terminPlatnosci": platnosci[j].terminPlatnosci.slice(0,10), "dataPlatnosci": platnosci[j].dataPlatnosci.slice(0,10), "kwota": platnosci[j].kwota }
+    
+                            mojePlatnosci.push(nowaPlatnosc)
+                        }
+                        
+                    }
+                }   
 
             setPlatnosci(mojePlatnosci)
+            })
+            
         })
     };
 

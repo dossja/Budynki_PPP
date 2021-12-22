@@ -80,12 +80,12 @@ const FormZlecenie = (props) => {
             else {
                 const firma = { "nazwa": form.nazwa, "usluga": form.usluga, "telefon": form.numerTelefonu };
                 fpa.post(firma).then(resp => {
-                    fpa.getNewest().then(responseFirmy => {
+                    fpa.getNewestId().then(responseFirmy => {
                         console.log(responseFirmy.data)
 
                         zga.getID(props.idZgloszenia).then(responseZgloszenia => {
                             const dane = {
-                                "koszt": form.koszt, "terminWykonania": form.terminWykonania, "dataWykonania": "1900-01-01", "zgloszenie": responseZgloszenia.data, "firmaPodwykonawcza": responseFirmy.data
+                                "koszt": form.koszt, "terminWykonania": form.terminWykonania, "dataWykonania": "1900-01-01", "zgloszenie_id": responseZgloszenia.data.id, "firmaPodwykonawcza_id": responseFirmy.data
                             }
                             console.log(dane)
                             zla.post(dane).then(() => { setForm(defaultEmpty); setValidated(false); props.onHide(); setNowaFirma(false) }).catch(e => {

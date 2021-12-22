@@ -11,6 +11,14 @@ def get_zlecenia():
 
     return f"{zlecenia}"
 
+@app.route('/zlecenia/zgloszenia/<string:id>', methods=['GET'])
+def get_zlecenia_Zgloszenia(id):
+    zlecenia = Zlecenia.query.filter_by(zgloszenie_id=id).all()
+
+    if zlecenia is not None:
+        return jsonify(f"{zlecenia}"), 200
+    return jsonify(error="zlecenia not found"), 404
+
 
 @app.route('/zlecenia/<string:id>', methods=['GET'])
 def get_zlecenia_ID(id):
@@ -23,7 +31,7 @@ def get_zlecenia_ID(id):
 
 @app.route('/zlecenia/newest', methods=['GET'])
 def get_zlecenia_Newest():
-    zlecenia = Zlecenia.query.order_by(zlecenia.id.desc()).first()
+    zlecenia = Zlecenia.query.order_by(Zlecenia.id.desc()).first()
 
     if zlecenia is not None:
         return jsonify(f"{zlecenia}"), 200
@@ -78,10 +86,10 @@ def put_zlecenia(id):
         zlecenia.dataWykonania = dataWykonania
     zgloszenie_id = datas.get('zgloszenie_id', '')
     if zgloszenie_id == '':
-        zgloszenia.zgloszenie_id = zgloszenie_id
+        zlecenia.zgloszenie_id = zgloszenie_id
     firmaPodwykonawcza_id = datas.get('firmaPodwykonawcza_id', '')
     if firmaPodwykonawcza_id == '':
-        zgloszenia.firmaPodwykonawcza_id = firmaPodwykonawcza_id
+        zlecenia.firmaPodwykonawcza_id = firmaPodwykonawcza_id
 
     db.session.add(zlecenia)
     db.session.commit()

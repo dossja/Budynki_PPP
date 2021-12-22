@@ -51,6 +51,16 @@ const Wspolnoty = () => {
         setAktualizuj(true);
     }
 
+    async function btnUsun(id) {
+        console.log("BTN Delete");
+        console.log(id);
+        wa.deleteID(id).then(response => {
+            setAktualizuj(true);
+        }).catch(e => {
+            console.log(e);
+        });
+    }
+
     async function btnNieruchomosci(id) {
         console.log("BTN Nieruchomosci");
         console.log(id);
@@ -89,6 +99,7 @@ const Wspolnoty = () => {
                             <td className="align-middle">
                                 <ButtonGroup size='sm' aria-label="Basic example">
                                     <Button className="mr-2 ml-2" variant="info" onClick={() => btnEdytuj(wspolnoty.id)}>Edytuj</Button>
+                                    <Button className="mr-2 ml-2" variant="danger" onClick={() => btnUsun(wspolnoty.id)}>Usuń</Button>
                                     <Button className="mr-2 ml-2" variant="secondary" onClick={() => btnNieruchomosci(wspolnoty.id)}>Nieruchomości</Button>
                                 </ButtonGroup>
                             </td>
